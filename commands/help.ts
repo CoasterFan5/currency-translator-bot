@@ -1,9 +1,11 @@
 import { Embed, EmbedBuilder, type Message } from "discord.js";
-import { commandResponseSendHelper } from "../commandResponseSendHelper";
+import { commandResponseSendHelper } from "../util/commandResponseSendHelper";
 
 const commands = {
 	help: "This command!",
-	getConfig: "Get the currency config"
+	getConfig: "Get the currency config",
+	addBase: "Add a base currency",
+	listCurrency: "List supported currency"
 };
 const modifiers = {
 	"--s": "Silence a command output",
@@ -13,7 +15,7 @@ const modifiers = {
 	"--blue": "Just send me the JSON object (dev option)",
 };
 
-export const help = (message: Message, mods) => {
+export const help = (message: Message, args, mods) => {
 	console.log("calling help");
 
 	const embed = new EmbedBuilder()

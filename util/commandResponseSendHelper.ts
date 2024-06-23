@@ -1,5 +1,5 @@
 import type { APIEmbed, Embed, EmbedBuilder, EmbedData, Message, MessageCreateOptions } from "discord.js";
-import type { CommandModifiers } from "./commandHelper";
+import type { CommandModifiers } from "../commandHelper";
 
 export const commandResponseSendHelper = (
 	originalMessage: Message,

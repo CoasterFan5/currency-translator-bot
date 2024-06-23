@@ -1,13 +1,9 @@
 import { EmbedBuilder, type Message } from "discord.js";
 import { commands } from "./commandList";
+import { createErrorEmbed } from "./util/createErrorEmbed";
+import { commandResponseSendHelper } from "./util/commandResponseSendHelper";
 
-const createErrorEmbed = (errorMessage: string) => {
-	const embed = new EmbedBuilder();
-	embed.setTitle("Error!");
-	embed.setDescription(errorMessage);
-	embed.setColor("#ff0000");
-	return embed;
-};
+
 
 const commandModifierArguments = {
 	"--s": "silent",
@@ -34,6 +30,8 @@ const createModifierList = (args: string[]) => {
 	for (let i = 0; i < args.length; i++) {
 		for (const key in commandModifierArguments) {
 			if (key === args[i]) {
+				args.splice(i, 1)
+				i--;
 				blank[commandModifierArguments[key]] = true;
 			}
 		}
@@ -49,28 +47,16 @@ export const commandManager = (message: Message) => {
 		const mods = createModifierList(args);
 		const commandName = args[1];
 		if (!commandName) {
-			if (!mods.silent) {
-				if (mods.raw) {
-					return message.reply("No command name specified");
-				}
-				message.reply({
-					embeds: [createErrorEmbed("No command name specified")],
-				});
-			}
+			commandResponseSendHelper(message, {
+				embeds: [createErrorEmbed("No command name specified")]
+			}, mods)
 		} else {
 			if (commands[commandName]) {
-				console.log("running coma");
-				console.log(!mods.silent);
-				commands[commandName](message, mods);
+				commands[commandName](message, args, mods);
 			} else {
-				if (!mods.silent) {
-					if (mods.raw) {
-						return message.reply("No command name specified");
-					}
-					message.reply({
-						embeds: [createErrorEmbed("No command found")],
-					});
-				}
+				commandResponseSendHelper(message, {
+					embeds: [createErrorEmbed("No command found")]
+				}, mods)
 			}
 		}
 		return true;

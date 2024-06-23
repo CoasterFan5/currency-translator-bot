@@ -1,9 +1,9 @@
 import { Prisma } from "@prisma/client";
 import { EmbedBuilder, type Message } from "discord.js";
 import { prisma } from "../prisma";
-import { commandResponseSendHelper } from "../commandResponseSendHelper";
+import { commandResponseSendHelper } from "../util/commandResponseSendHelper";
 
-export const getConfig = async (message: Message, mods) => {
+export const getConfig = async (message: Message, args, mods) => {
 	const serverId = message.guildId
 
 	const config = await prisma.serverSettings.findUnique({
