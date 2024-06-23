@@ -10,18 +10,27 @@ export const getConfig = async (message: Message, args, mods) => {
 		where: {
 			id: serverId,
 		},
+		include: {
+			baseCurrencies: true
+		}
 	});
-
-	if (!config) {
 		const embed = new EmbedBuilder()
-			.setTitle("Error")
-			.setDescription("No set config");
-		commandResponseSendHelper(
+			.setTitle("Config")
+			.setDescription("Server Config");
+		let baseCurrencyString = ""
+		for(const [index, baseCurrency] of config.baseCurrencies.entries()) {
+			baseCurrencyString += `${baseCurrency.currencyName}${index !== config.baseCurrencies.length - 1 ? ", " : ""}`
+		}
+		embed.addFields({
+			name: "Base Currencies",
+			value: baseCurrencyString
+		})
+		return commandResponseSendHelper(
 			message,
 			{
 				embeds: [embed],
 			},
 			mods,
 		);
-	}
+	
 };
