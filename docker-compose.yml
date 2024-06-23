@@ -12,7 +12,7 @@ services:
     image: node:20.9.0-alpine3.18
     container_name: bot-system
     env_file:
-      - .env
+      - .env.dev
     volumes:
       - ./:/app
       - /app/node_modules
