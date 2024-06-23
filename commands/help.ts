@@ -5,7 +5,7 @@ const commands = {
 	help: "This command!",
 	getConfig: "Get the currency config",
 	addBase: "Add a base currency",
-	listCurrency: "List supported currency"
+	listCurrency: "List supported currency",
 };
 const modifiers = {
 	"--s": "Silence a command output",

@@ -4,18 +4,24 @@ import { prisma } from "../prisma";
 import { commandResponseSendHelper } from "../util/commandResponseSendHelper";
 
 export const getConfig = async (message: Message, args, mods) => {
-	const serverId = message.guildId
+	const serverId = message.guildId;
 
 	const config = await prisma.serverSettings.findUnique({
 		where: {
-			id: serverId
-		}
-	})
+			id: serverId,
+		},
+	});
 
-	if(!config) {
-		const embed = new EmbedBuilder().setTitle("Error").setDescription("No set config")
-		commandResponseSendHelper(message, {
-			embeds: [embed]
-		}, mods)
+	if (!config) {
+		const embed = new EmbedBuilder()
+			.setTitle("Error")
+			.setDescription("No set config");
+		commandResponseSendHelper(
+			message,
+			{
+				embeds: [embed],
+			},
+			mods,
+		);
 	}
-}
+};

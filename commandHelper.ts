@@ -1,9 +1,7 @@
 import { EmbedBuilder, type Message } from "discord.js";
 import { commands } from "./commandList";
-import { createErrorEmbed } from "./util/createErrorEmbed";
 import { commandResponseSendHelper } from "./util/commandResponseSendHelper";
-
-
+import { createErrorEmbed } from "./util/createErrorEmbed";
 
 const commandModifierArguments = {
 	"--s": "silent",
@@ -30,7 +28,7 @@ const createModifierList = (args: string[]) => {
 	for (let i = 0; i < args.length; i++) {
 		for (const key in commandModifierArguments) {
 			if (key === args[i]) {
-				args.splice(i, 1)
+				args.splice(i, 1);
 				i--;
 				blank[commandModifierArguments[key]] = true;
 			}
@@ -47,16 +45,24 @@ export const commandManager = (message: Message) => {
 		const mods = createModifierList(args);
 		const commandName = args[1];
 		if (!commandName) {
-			commandResponseSendHelper(message, {
-				embeds: [createErrorEmbed("No command name specified")]
-			}, mods)
+			commandResponseSendHelper(
+				message,
+				{
+					embeds: [createErrorEmbed("No command name specified")],
+				},
+				mods,
+			);
 		} else {
 			if (commands[commandName]) {
 				commands[commandName](message, args, mods);
 			} else {
-				commandResponseSendHelper(message, {
-					embeds: [createErrorEmbed("No command found")]
-				}, mods)
+				commandResponseSendHelper(
+					message,
+					{
+						embeds: [createErrorEmbed("No command found")],
+					},
+					mods,
+				);
 			}
 		}
 		return true;
