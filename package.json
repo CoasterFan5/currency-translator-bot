@@ -1,19 +1,21 @@
 {
-  "name": "currency-translator-bot",
-  "module": "true",
-  "version": "1.0.0",
-  "description": "auto converts currencies sent in messages to a servers targeted currency",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch index.ts"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "discord.js": "^14.15.3",
-    "dotenv": "^16.4.5",
-    "tsx": "^4.15.7",
-    "zod": "^3.23.8"
-  }
+	"name": "currency-translator-bot",
+	"module": "true",
+	"version": "1.0.0",
+	"description": "auto converts currencies sent in messages to a servers targeted currency",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "tsx watch index.ts",
+		"format": "npx @biomejs/biome check --write ."
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@biomejs/biome": "^1.8.2",
+		"discord.js": "^14.15.3",
+		"dotenv": "^16.4.5",
+		"tsx": "^4.15.7",
+		"zod": "^3.23.8"
+	}
 }

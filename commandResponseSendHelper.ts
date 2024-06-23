@@ -1,18 +1,25 @@
-import { Message, MessagePayload, MessageReplyOptions } from "discord.js";
-import { CommandModifiers } from "./commandHelper";
+import type { Message, MessagePayload, MessageReplyOptions } from "discord.js";
+import type { CommandModifiers } from "./commandHelper";
 
-export const commandResponseSendHelper = (originalMessage: Message, response: string | MessagePayload | MessageReplyOptions, mods: CommandModifiers) => {
-	if(mods.blue) {
-		response = "```json\n" + JSON.stringify(response) + "\n```"
+export const commandResponseSendHelper = (
+	originalMessage: Message,
+	response: string | MessagePayload | MessageReplyOptions,
+	mods: CommandModifiers,
+) => {
+	let newResponse: string | MessagePayload | MessageReplyOptions;
+	if (mods.blue) {
+		newResponse = `\`\`\`json\n${JSON.stringify(response)}\n\`\`\``;
+	} else {
+		newResponse = response;
 	}
-	if(mods.dm) {
-		originalMessage.author.send(response)
+	if (mods.dm) {
+		originalMessage.author.send(newResponse);
 	}
-	if(!mods.silent) {
-		if(mods.noReply) {
-			originalMessage.channel.send(response)
+	if (!mods.silent) {
+		if (mods.noReply) {
+			originalMessage.channel.send(newResponse);
 		} else {
-			originalMessage.reply(response)
+			originalMessage.reply(newResponse);
 		}
 	}
-}
+};

@@ -1,7 +1,7 @@
-export let currencyData = {
+export const currencyData = {
 	USD: {
 		value: 0,
-		regex: /\$[0-9.]*/gm
+		regex: /\$[0-9.]*/gm,
 	},
 	GBP: {
 		value: 0,
@@ -13,6 +13,6 @@ export let currencyData = {
 	},
 	PLN: {
 		value: 0,
-		regex: /[0-9.]* zł/gm 
-	}
-}
+		regex: /[0-9.]* zł/gm,
+	},
+};
