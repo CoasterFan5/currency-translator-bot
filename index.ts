@@ -31,15 +31,23 @@ client.on("messageCreate", (message) => {
 	//the magic?
 	const messageContent = message.content.toLowerCase()
 	
+	const embed = new EmbedBuilder()
+					.setTitle("Currency Context")
+					.setDescription(`Providing useful currency context\n`)
+					.setColor("#3477eb")
+
+	let embedDescription = "Providing useful currency context\n"
+	let sendEmbed = false;
+
 	for(const key in currencyData) {
 		const match = messageContent.match(currencyData[key].regex)
 		if(match && match[0]) {
 			const matchString = match[0].toString()
-			const valueStringArray = matchString.match(/[0-9][0-9]*/gm)
+			const valueStringArray = matchString.match(/[0-9][0-9.]*/gm)
 			if(!valueStringArray) {
 				return
 			}
-			const value = parseInt(valueStringArray[0])
+			const value = parseFloat(valueStringArray[0])
 			if(isNaN(value)) {
 				return
 			}
@@ -49,17 +57,19 @@ client.on("messageCreate", (message) => {
 			//convert back to usd
 			if(key != "USD") {
 				const newValue = (1/currencyData[key].value * value).toFixed(2);
-				const embed = new EmbedBuilder()
-					.setTitle("Currency Context")
-					.setDescription(`Providing useful currency context\n${value} ${key} is equal to ${newValue} USD`)
-					.setColor("#3477eb")
-				message.channel.send({
-					embeds: [
-						embed
-					],
-				})
+				embedDescription += `${value} ${key} is equal to ${newValue} USD\n`
+				sendEmbed = true
+				
 			}
 		}
+	}
+	if(sendEmbed) {
+		embed.setDescription(embedDescription)
+		message.channel.send({
+			embeds: [
+				embed
+			],
+		})
 	}
 
 

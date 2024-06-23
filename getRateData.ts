@@ -7,6 +7,7 @@ const apiSchema = z.object({
 	rates: z.object({
 		USD: z.number(),
 		GBP: z.number(),
+		EUR: z.number()
 	})
 })
 
