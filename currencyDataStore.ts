@@ -9,6 +9,10 @@ export let currencyData = {
 	},
 	EUR: {
 		value: 0,
-		regex: /€[0-9.]*/gm,
+		regex: /[0-9.]*€/gm,
+	},
+	PLN: {
+		value: 0,
+		regex: /[0-9.]* zł/gm 
 	}
 }

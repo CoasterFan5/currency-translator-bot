@@ -2,6 +2,7 @@ import { Client, EmbedBuilder, GatewayIntentBits } from "discord.js";
 import 'dotenv/config'
 import { getRateData } from "./getRateData";
 import { currencyData } from "./currencyDataStore";
+import { commandManager } from "./commandHelper";
 
 const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
 
@@ -13,6 +14,9 @@ client.on("ready", () => {
 
 client.on("messageCreate", (message) => {
 
+	if(commandManager(message)) {
+		return;
+	}
 	
 
 	if(!client.user) {
@@ -76,5 +80,4 @@ client.on("messageCreate", (message) => {
 	
 });
 
-console.log(process.env.TOKEN)
 client.login(process.env.TOKEN)
