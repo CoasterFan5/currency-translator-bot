@@ -10,25 +10,35 @@ const createErrorEmbed = (errorMessage: string) => {
 }
 
 const commandModifierArguments = {
-	"--s": "silent"
+	"--s": "silent",
+	"--raw": "raw",
+	"--noReply": "noReply",
+	"--dm": "dm",
+	"--blue": "blue"
 }
 
 const createBlankModifiers = () => {
 	return {
-		silent: false
+		silent: false,
+		raw: false,
+		noReply: false,
+		dm: false,
+		blue: false,
 	}
 }
+
+export type CommandModifiers = ReturnType<typeof createBlankModifiers>
 
 const createModifierList = (args: string[]) => {
 	const blank = createBlankModifiers()
 	for(let i = 0; i < args.length; i++) {
 		for(const key in commandModifierArguments) {
-			if(args[i] == key) {
-				console.log("setting " + key)
-				blank[key] == true
+			if(key == args[i]) {
+				blank[commandModifierArguments[key]] = true
 			}
 		}
 	}
+	console.log(blank)
 	return blank;
 }
 
@@ -48,6 +58,9 @@ export const commandManager = (message: Message) => {
 		if(!commandName) {
 
 			if(!mods.silent) {
+				if(mods.raw) {
+					return message.reply("No command name specified")
+				}
 				message.reply({
 					embeds: [
 						createErrorEmbed("No command name specified")
@@ -59,13 +72,13 @@ export const commandManager = (message: Message) => {
 			if(commands[commandName]) {
 				console.log("running coma")
 				console.log(!mods.silent)
-				const output = commands[commandName](message)
-				if(!mods.silent) {
-					message.channel.send(output)
-				}
+				commands[commandName](message, mods)
 				
 			} else {
 				if(!mods.silent) {
+					if(mods.raw) {
+						return message.reply("No command name specified")
+					}
 					message.reply({
 						embeds: [
 							createErrorEmbed("No command found")
