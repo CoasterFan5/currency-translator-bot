@@ -11,7 +11,7 @@ export const commands: {
 		message: Message,
 		args: string[],
 		mods: CommandModifiers,
-	) => void;
+	) => unknown;
 } = {
 	help,
 	getConfig,
