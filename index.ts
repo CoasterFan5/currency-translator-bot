@@ -24,7 +24,7 @@ client.on("messageCreate", (message) => {
 	}
 
 	//temporary channel limiter
-	if(message.channelId != "1254237491406573669") {
+	if(message.channelId != "857116317119283240") {
 		return;
 	}
 

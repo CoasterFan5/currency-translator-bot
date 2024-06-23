@@ -5,13 +5,15 @@
   "description": "auto converts currencies sent in messages to a servers targeted currency",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
+    "tsx": "^4.15.7",
     "zod": "^3.23.8"
   }
 }
