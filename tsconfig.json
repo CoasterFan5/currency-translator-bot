@@ -1,0 +1,17 @@
+{
+	// Some typical compiler options
+	"compilerOptions": {
+	  "target": "es2020",
+	  "module": "es2020",
+	  "moduleResolution": "bundler"
+	  // ...
+	},
+	// NEW: Options for file/directory watching
+	"watchOptions": {
+	  "watchFile": "dynamicPriorityPolling",
+	  "watchDirectory": "dynamicPriorityPolling",
+	  "fallbackPolling": "dynamicPriority",
+	  "synchronousWatchDirectory": true,
+	  "excludeDirectories": ["**/node_modules", "**/.pnpm-store"],
+	}
+  }

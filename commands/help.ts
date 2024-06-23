@@ -3,6 +3,7 @@ import { commandResponseSendHelper } from "../commandResponseSendHelper";
 
 const commands = {
 	help: "This command!",
+	getConfig: "Get the currency config"
 };
 const modifiers = {
 	"--s": "Silence a command output",
@@ -14,19 +15,6 @@ const modifiers = {
 
 export const help = (message: Message, mods) => {
 	console.log("calling help");
-
-	if (mods.raw) {
-		let rep = "# Help\n## Commands:\n";
-		for (const key in commands) {
-			rep += `**${key}** - ${commands[key]}\n`;
-		}
-		rep += "## Modifiers\n";
-		for (const key in modifiers) {
-			rep += `**${key}** - ${modifiers[key]}\n`;
-		}
-		commandResponseSendHelper(message, rep, mods);
-		return;
-	}
 
 	const embed = new EmbedBuilder()
 		.setTitle("Help")
