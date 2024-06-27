@@ -1,8 +1,8 @@
 import { EmbedBuilder, type Message, PermissionsBitField } from "discord.js";
+import { currencyData } from "../currencyDataStore";
 import { prisma } from "../prisma";
 import { commandResponseSendHelper } from "../util/commandResponseSendHelper";
 import { createErrorEmbed } from "../util/createErrorEmbed";
-import { currencyData } from "../currencyDataStore";
 
 export const addBase = async (message: Message, args: string[], mods) => {
 	if (
@@ -42,14 +42,12 @@ export const addBase = async (message: Message, args: string[], mods) => {
 		);
 	}
 
-	if(!currencyData[baseCurrency]) {
+	if (!currencyData[baseCurrency]) {
 		return commandResponseSendHelper(
 			message,
 			{
 				embeds: [
-					createErrorEmbed(
-						"Unsupported currency. Try listCurrency for a list",
-					),
+					createErrorEmbed("Unsupported currency. Try listCurrency for a list"),
 				],
 			},
 			mods,
@@ -60,26 +58,34 @@ export const addBase = async (message: Message, args: string[], mods) => {
 		where: {
 			AND: {
 				serverId: message.guildId,
-				currencyName: baseCurrency
-			}
-		}
-	})
+				currencyName: baseCurrency,
+			},
+		},
+	});
 
-	if(baseCheck) {
-		return commandResponseSendHelper(message, {embeds: [createErrorEmbed("Currency base already specified")]}, mods)
+	if (baseCheck) {
+		return commandResponseSendHelper(
+			message,
+			{ embeds: [createErrorEmbed("Currency base already specified")] },
+			mods,
+		);
 	}
 
 	await prisma.baseCurrency.create({
 		data: {
 			serverId: message.guildId,
-			currencyName: baseCurrency
-		}
-	})
+			currencyName: baseCurrency,
+		},
+	});
 
 	return commandResponseSendHelper(
 		message,
 		{
-			embeds: [new EmbedBuilder().setTitle("Created").setDescription("Currency Created")],
+			embeds: [
+				new EmbedBuilder()
+					.setTitle("Created")
+					.setDescription("Currency Created"),
+			],
 		},
 		mods,
 	);

@@ -11,26 +11,25 @@ export const getConfig = async (message: Message, args, mods) => {
 			id: serverId,
 		},
 		include: {
-			baseCurrencies: true
-		}
+			baseCurrencies: true,
+		},
 	});
-		const embed = new EmbedBuilder()
-			.setTitle("Config")
-			.setDescription("Server Config");
-		let baseCurrencyString = ""
-		for(const [index, baseCurrency] of config.baseCurrencies.entries()) {
-			baseCurrencyString += `${baseCurrency.currencyName}${index !== config.baseCurrencies.length - 1 ? ", " : ""}`
-		}
-		embed.addFields({
-			name: "Base Currencies",
-			value: baseCurrencyString
-		})
-		return commandResponseSendHelper(
-			message,
-			{
-				embeds: [embed],
-			},
-			mods,
-		);
-	
+	const embed = new EmbedBuilder()
+		.setTitle("Config")
+		.setDescription("Server Config");
+	let baseCurrencyString = "";
+	for (const [index, baseCurrency] of config.baseCurrencies.entries()) {
+		baseCurrencyString += `${baseCurrency.currencyName}${index !== config.baseCurrencies.length - 1 ? ", " : ""}`;
+	}
+	embed.addFields({
+		name: "Base Currencies",
+		value: baseCurrencyString,
+	});
+	return commandResponseSendHelper(
+		message,
+		{
+			embeds: [embed],
+		},
+		mods,
+	);
 };

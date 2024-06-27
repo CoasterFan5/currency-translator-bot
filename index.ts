@@ -2,8 +2,8 @@ import { Client, EmbedBuilder, GatewayIntentBits } from "discord.js";
 import "dotenv/config";
 import { commandManager } from "./commandHelper";
 import { currencyData } from "./currencyDataStore";
-import { getRateData } from "./getRateData";
 import { getMatches } from "./currencyTranslator/needsTranslation";
+import { getRateData } from "./getRateData";
 import { prisma } from "./prisma";
 
 const client = new Client({
@@ -17,7 +17,7 @@ const client = new Client({
 getRateData();
 
 client.on("ready", (newClient) => {
-	client.user.setActivity("$:currency help")
+	client.user.setActivity("$:currency help");
 	console.log(`Logged in as ${client.user?.tag}`);
 });
 
@@ -44,67 +44,58 @@ client.on("messageCreate", async (message) => {
 
 	let embedDescription = "Providing useful currency context\n";
 
-	const messageMatches = getMatches(messageContent)
-	if(messageMatches.length < 1) {
+	const messageMatches = getMatches(messageContent);
+	if (messageMatches.length < 1) {
 		return;
 	}
 
 	const serverConfig = await prisma.serverSettings.findFirst({
 		where: {
-			id: message.guildId
+			id: message.guildId,
 		},
 		include: {
-			baseCurrencies: true
-		}
-	})
+			baseCurrencies: true,
+		},
+	});
 
-	for(let i = 0; i < messageMatches.length; i++) {
-		const match = messageMatches[i]
-		const usdValue = match.value / currencyData[match.currency].value
+	for (let i = 0; i < messageMatches.length; i++) {
+		const match = messageMatches[i];
+		const usdValue = match.value / currencyData[match.currency].value;
 		const conversions: {
-			value: number,
-			currency: string,
-		}[] = []
+			value: number;
+			currency: string;
+		}[] = [];
 
 		//convert into all the bases
-		for(let j = 0; j < serverConfig.baseCurrencies.length; j++) {
-			
-			const baseCurrency = serverConfig.baseCurrencies[j]
-			console.log(match.currency === baseCurrency.currencyName)
-			if(match.currency !== baseCurrency.currencyName) {
+		for (let j = 0; j < serverConfig.baseCurrencies.length; j++) {
+			const baseCurrency = serverConfig.baseCurrencies[j];
+			console.log(match.currency === baseCurrency.currencyName);
+			if (match.currency !== baseCurrency.currencyName) {
 				conversions.push({
 					currency: baseCurrency.currencyName,
-					value: usdValue * currencyData[baseCurrency.currencyName].value
-				})
-			}		
-			
+					value: usdValue * currencyData[baseCurrency.currencyName].value,
+				});
+			}
 		}
 
-		console.log(conversions)
-		if(conversions.length > 0) {
+		console.log(conversions);
+		if (conversions.length > 0) {
 			//already has been converted to usd, so we need to convert it back
-			embedDescription += `${match.value} ${match.currency} is equal to: `
+			embedDescription += `${match.value} ${match.currency} is equal to: `;
 		}
-		for(let k = 0; k < conversions.length; k++) {
-			const conversion = conversions[k]
-			embedDescription += `\`${conversion.value.toFixed(2)} ${conversion.currency}\` `
+		for (let k = 0; k < conversions.length; k++) {
+			const conversion = conversions[k];
+			embedDescription += `\`${conversion.value.toFixed(2)} ${conversion.currency}\` `;
 		}
-		if(conversions.length > 0) {
-			embedDescription += "\n"
+		if (conversions.length > 0) {
+			embedDescription += "\n";
 		}
-		
-
 	}
-
-	
 
 	embed.setDescription(embedDescription);
 	message.channel.send({
 		embeds: [embed],
 	});
-	
 });
 
 const newClient = client.login(process.env.TOKEN);
-
-
