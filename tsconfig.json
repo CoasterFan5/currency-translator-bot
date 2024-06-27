@@ -2,7 +2,7 @@
 	// Some typical compiler options
 	"compilerOptions": {
 		"target": "es2020",
-		"module": "es2020",
+		"module": "esnext",
 		"moduleResolution": "bundler"
 		// ...
 	},
