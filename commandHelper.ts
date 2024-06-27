@@ -34,7 +34,6 @@ const createModifierList = (args: string[]) => {
 			}
 		}
 	}
-	console.log(blank);
 	return blank;
 };
 

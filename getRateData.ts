@@ -9,6 +9,7 @@ const apiSchema = z.object({
 		GBP: z.number(),
 		EUR: z.number(),
 		PLN: z.number(),
+		JPY: z.number(),
 	}),
 });
 
@@ -26,5 +27,4 @@ export const getRateData = async () => {
 		currencyData[key].value = parsedBodyData.data.rates[key];
 	}
 
-	console.log(currencyData);
 };

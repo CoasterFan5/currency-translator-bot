@@ -79,7 +79,6 @@ client.on("messageCreate", async (message) => {
 		//convert into all the bases
 		for (let j = 0; j < serverConfig.baseCurrencies.length; j++) {
 			const baseCurrency = serverConfig.baseCurrencies[j];
-			console.log(match.currency === baseCurrency.currencyName);
 			if (match.currency !== baseCurrency.currencyName) {
 				conversions.push({
 					currency: baseCurrency.currencyName,

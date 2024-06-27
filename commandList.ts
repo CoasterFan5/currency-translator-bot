@@ -5,6 +5,7 @@ import { getConfig } from "./commands/getConfig";
 import { help } from "./commands/help";
 import { listCurrency } from "./commands/listCurrency";
 import { setConfig } from "./commands/setConfig";
+import { removeBase } from "./commands/removeBase";
 
 export const commands: {
 	[key: string]: (
@@ -18,4 +19,5 @@ export const commands: {
 	setConfig,
 	addBase,
 	listCurrency,
+	removeBase,
 };

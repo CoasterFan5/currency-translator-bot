@@ -14,7 +14,6 @@ export const getMatches = (str: string) => {
 		for (let i = 0; i < matchList.length; i++) {
 			const match = matchList[i];
 			const valueStringArray = match.match(/[0-9.]+/g);
-			console.log(valueStringArray);
 			if (!valueStringArray) {
 				continue;
 			}

@@ -6,6 +6,7 @@ const commands = {
 	getConfig: "Get the currency config",
 	addBase: "Add a base currency",
 	listCurrency: "List supported currency",
+	removeBase: "Remove a base currency"
 };
 const modifiers = {
 	"--s": "Silence a command output",
@@ -16,7 +17,6 @@ const modifiers = {
 };
 
 export const help = (message: Message, args, mods) => {
-	console.log("calling help");
 
 	const embed = new EmbedBuilder()
 		.setTitle("Help")
