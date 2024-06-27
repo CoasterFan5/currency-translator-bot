@@ -40,7 +40,11 @@ client.on("messageCreate", async (message) => {
 
 	const embed = new EmbedBuilder()
 		.setTitle("Currency Context")
-		.setColor("#3477eb");
+		.setColor("#3477eb")
+		.setFooter({
+			text: "Rates By Exchange Rate API"
+		});
+		
 
 	let embedDescription = "Providing useful currency context\n";
 
@@ -60,6 +64,12 @@ client.on("messageCreate", async (message) => {
 
 	for (let i = 0; i < messageMatches.length; i++) {
 		const match = messageMatches[i];
+		if(Math.floor(match.value) === 420) {
+			embed.setTitle("Currency Context <:weedemoji:1256027526963396628>")
+		}
+		if(Math.floor(match.value) === 69) {
+			embed.setTitle("Currency Context (nice)")
+		}
 		const usdValue = match.value / currencyData[match.currency].value;
 		const conversions: {
 			value: number;
@@ -78,7 +88,6 @@ client.on("messageCreate", async (message) => {
 			}
 		}
 
-		console.log(conversions);
 		if (conversions.length > 0) {
 			//already has been converted to usd, so we need to convert it back
 			embedDescription += `${match.value} ${match.currency} is equal to: `;
@@ -92,10 +101,13 @@ client.on("messageCreate", async (message) => {
 		}
 	}
 
+	//just some special cases
+	
+
 	embed.setDescription(embedDescription);
 	message.channel.send({
 		embeds: [embed],
 	});
 });
 
-const newClient = client.login(process.env.TOKEN);
+client.login(process.env.TOKEN);
