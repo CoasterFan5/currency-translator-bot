@@ -1,4 +1,4 @@
-import { Client, EmbedBuilder, GatewayIntentBits } from "discord.js";
+import { Client, Colors, EmbedBuilder, GatewayIntentBits } from "discord.js";
 import "dotenv/config";
 import { commandManager } from "./commandHelper";
 import { currencyData } from "./currencyDataStore";
@@ -40,7 +40,7 @@ client.on("messageCreate", async (message) => {
 
 	const embed = new EmbedBuilder()
 		.setTitle("Currency Context")
-		.setColor("#3477eb")
+		.setColor(Colors.Blue)
 		.setFooter({
 			text: "Rates By Exchange Rate API"
 		});

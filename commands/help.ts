@@ -6,7 +6,8 @@ const commands = {
 	getConfig: "Get the currency config",
 	addBase: "Add a base currency",
 	listCurrency: "List supported currency",
-	removeBase: "Remove a base currency"
+	removeBase: "Remove a base currency",
+	invite: "Grab a bot invite link (yoink)"
 };
 const modifiers = {
 	"--s": "Silence a command output",

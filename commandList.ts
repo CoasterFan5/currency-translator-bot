@@ -6,6 +6,7 @@ import { help } from "./commands/help";
 import { listCurrency } from "./commands/listCurrency";
 import { setConfig } from "./commands/setConfig";
 import { removeBase } from "./commands/removeBase";
+import { invite } from "./commands/invite";
 
 export const commands: {
 	[key: string]: (
@@ -20,4 +21,5 @@ export const commands: {
 	addBase,
 	listCurrency,
 	removeBase,
+	invite,
 };
