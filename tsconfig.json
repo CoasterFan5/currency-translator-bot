@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"target": "es2020",
 		"module": "esnext",
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"outDir": "./built"
 		// ...
 	},
 	// NEW: Options for file/directory watching

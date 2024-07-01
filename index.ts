@@ -16,7 +16,7 @@ const client = new Client({
 
 getRateData();
 
-client.on("ready", (newClient) => {
+client.on("ready", () => {
 	client.user.setActivity("$:currency help");
 	console.log(`Logged in as ${client.user?.tag}`);
 });
@@ -27,11 +27,6 @@ client.on("messageCreate", async (message) => {
 	}
 
 	if (!client.user || message.author.id === client.user?.id) {
-		return;
-	}
-
-	//temporary channel limiter
-	if (message.channelId !== "857116317119283240") {
 		return;
 	}
 
