@@ -5,6 +5,7 @@ import { currencyData } from "./currencyDataStore";
 import { getMatches } from "./currencyTranslator/needsTranslation";
 import { getRateData } from "./getRateData";
 import { prisma } from "./prisma";
+import { create } from "ts-node";
 
 const client = new Client({
 	intents: [
@@ -47,7 +48,7 @@ client.on("messageCreate", async (message) => {
 		return;
 	}
 
-	const serverConfig = await prisma.serverSettings.findFirst({
+	let serverConfig = await prisma.serverSettings.findFirst({
 		where: {
 			id: message.guildId,
 		},
@@ -55,6 +56,22 @@ client.on("messageCreate", async (message) => {
 			baseCurrencies: true,
 		},
 	});
+
+	if(!serverConfig) {
+		serverConfig = await prisma.serverSettings.create({
+			data: {
+				id: message.guild.id,
+				baseCurrencies: {
+					create: {
+						currencyName: "USD",
+					}
+				}
+			},
+			include: {
+				baseCurrencies: true
+			}
+		})
+	}
 
 	for (let i = 0; i < messageMatches.length; i++) {
 		const match = messageMatches[i];

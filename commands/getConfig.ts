@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import { EmbedBuilder, type Message } from "discord.js";
 import { prisma } from "../prisma";
 import { commandResponseSendHelper } from "../util/commandResponseSendHelper";
+import { createErrorEmbed } from "../util/createErrorEmbed";
 
 export const getConfig = async (message: Message, args, mods) => {
 	const serverId = message.guildId;
@@ -14,6 +15,17 @@ export const getConfig = async (message: Message, args, mods) => {
 			baseCurrencies: true,
 		},
 	});
+
+	if(!config?.baseCurrencies) {
+		return commandResponseSendHelper(
+			message,
+			{
+				embeds: [createErrorEmbed("No config created yet.")],
+			},
+			mods,
+		);
+	}
+
 	const embed = new EmbedBuilder()
 		.setTitle("Config")
 		.setDescription("Server Config");
