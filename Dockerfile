@@ -1,5 +1,5 @@
 FROM node:20.9.0-alpine3.18
-WORKDIR /app
+WORKDIR /
 COPY . .
 RUN npm i -g pnpm
 RUN pnpm install
