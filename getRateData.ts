@@ -26,5 +26,4 @@ export const getRateData = async () => {
 	for (const key in currencyData) {
 		currencyData[key].value = parsedBodyData.data.rates[key];
 	}
-
 };

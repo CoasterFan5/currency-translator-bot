@@ -7,7 +7,7 @@ const commands = {
 	addBase: "Add a base currency",
 	listCurrency: "List supported currency",
 	removeBase: "Remove a base currency",
-	invite: "Grab a bot invite link (yoink)"
+	invite: "Grab a bot invite link (yoink)",
 };
 const modifiers = {
 	"--s": "Silence a command output",
@@ -18,7 +18,6 @@ const modifiers = {
 };
 
 export const help = (message: Message, args, mods) => {
-
 	const embed = new EmbedBuilder()
 		.setTitle("Help")
 		.setDescription("General bot help");

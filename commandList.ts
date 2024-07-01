@@ -3,10 +3,10 @@ import type { CommandModifiers } from "./commandHelper";
 import { addBase } from "./commands/addBase";
 import { getConfig } from "./commands/getConfig";
 import { help } from "./commands/help";
-import { listCurrency } from "./commands/listCurrency";
-import { setConfig } from "./commands/setConfig";
-import { removeBase } from "./commands/removeBase";
 import { invite } from "./commands/invite";
+import { listCurrency } from "./commands/listCurrency";
+import { removeBase } from "./commands/removeBase";
+import { setConfig } from "./commands/setConfig";
 
 export const commands: {
 	[key: string]: (

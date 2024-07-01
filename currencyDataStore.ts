@@ -24,6 +24,6 @@ export const currencyData = {
 	JPY: {
 		symbol: "¥",
 		value: 0,
-		regex: /¥[0-9.]*/g
-	}
+		regex: /¥[0-9.]*/g,
+	},
 };

@@ -37,9 +37,8 @@ client.on("messageCreate", async (message) => {
 		.setTitle("Currency Context")
 		.setColor(Colors.Blue)
 		.setFooter({
-			text: "Rates By Exchange Rate API"
+			text: "Rates By Exchange Rate API",
 		});
-		
 
 	let embedDescription = "Providing useful currency context\n";
 
@@ -59,11 +58,11 @@ client.on("messageCreate", async (message) => {
 
 	for (let i = 0; i < messageMatches.length; i++) {
 		const match = messageMatches[i];
-		if(Math.floor(match.value) === 420) {
-			embed.setTitle("Currency Context <:weedemoji:1256027526963396628>")
+		if (Math.floor(match.value) === 420) {
+			embed.setTitle("Currency Context <:weedemoji:1256027526963396628>");
 		}
-		if(Math.floor(match.value) === 69) {
-			embed.setTitle("Currency Context (nice)")
+		if (Math.floor(match.value) === 69) {
+			embed.setTitle("Currency Context (nice)");
 		}
 		const usdValue = match.value / currencyData[match.currency].value;
 		const conversions: {
@@ -96,7 +95,6 @@ client.on("messageCreate", async (message) => {
 	}
 
 	//just some special cases
-	
 
 	embed.setDescription(embedDescription);
 	message.channel.send({

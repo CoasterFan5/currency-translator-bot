@@ -73,7 +73,7 @@ export const removeBase = async (message: Message, args: string[], mods) => {
 
 	await prisma.baseCurrency.delete({
 		where: {
-			id: baseCheck.id
+			id: baseCheck.id,
 		},
 	});
 
