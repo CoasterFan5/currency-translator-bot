@@ -1,11 +1,13 @@
 import { Client, Colors, EmbedBuilder, GatewayIntentBits } from "discord.js";
 import "dotenv/config";
+import { create } from "ts-node";
 import { commandManager } from "./commandHelper";
 import { currencyData } from "./currencyDataStore";
 import { getMatches } from "./currencyTranslator/needsTranslation";
 import { getRateData } from "./getRateData";
 import { prisma } from "./prisma";
-import { create } from "ts-node";
+
+const devMode = process.env.DEV === "TRUE";
 
 const client = new Client({
 	intents: [
@@ -33,6 +35,7 @@ client.on("messageCreate", async (message) => {
 
 	//the magic?
 	const messageContent = message.content.toLowerCase();
+	let sendMessage = false;
 
 	const embed = new EmbedBuilder()
 		.setTitle("Currency Context")
@@ -57,20 +60,20 @@ client.on("messageCreate", async (message) => {
 		},
 	});
 
-	if(!serverConfig) {
+	if (!serverConfig) {
 		serverConfig = await prisma.serverSettings.create({
 			data: {
 				id: message.guild.id,
 				baseCurrencies: {
 					create: {
 						currencyName: "USD",
-					}
-				}
+					},
+				},
 			},
 			include: {
-				baseCurrencies: true
-			}
-		})
+				baseCurrencies: true,
+			},
+		});
 	}
 
 	for (let i = 0; i < messageMatches.length; i++) {
@@ -108,15 +111,23 @@ client.on("messageCreate", async (message) => {
 		}
 		if (conversions.length > 0) {
 			embedDescription += "\n";
+			sendMessage = true;
 		}
 	}
 
 	//just some special cases
 
 	embed.setDescription(embedDescription);
-	message.channel.send({
-		embeds: [embed],
-	});
+
+	if (devMode) {
+		embed.setColor(Colors.Red);
+		embed.setTitle("Currency Context - DEV");
+	}
+	if (sendMessage) {
+		message.channel.send({
+			embeds: [embed],
+		});
+	}
 });
 
 client.login(process.env.TOKEN);

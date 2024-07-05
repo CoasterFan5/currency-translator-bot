@@ -16,7 +16,7 @@ export const getConfig = async (message: Message, args, mods) => {
 		},
 	});
 
-	if(!config?.baseCurrencies) {
+	if (!config?.baseCurrencies) {
 		return commandResponseSendHelper(
 			message,
 			{

@@ -13,11 +13,12 @@ export const getMatches = (str: string) => {
 		}
 		for (let i = 0; i < matchList.length; i++) {
 			const match = matchList[i];
-			const valueStringArray = match.match(/[0-9.]+/g);
+			const valueStringArray = match.match(/[0-9.,]+/g);
 			if (!valueStringArray) {
 				continue;
 			}
-			const value = Number.parseFloat(valueStringArray[0]);
+
+			const value = Number.parseFloat(valueStringArray[0].replace(",", ""));
 			if (Number.isNaN(value)) {
 				continue;
 			}
