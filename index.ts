@@ -1,6 +1,5 @@
 import { Client, Colors, EmbedBuilder, GatewayIntentBits } from "discord.js";
 import "dotenv/config";
-import { create } from "ts-node";
 import { commandManager } from "./commandHelper";
 import { currencyData } from "./currencyDataStore";
 import { getMatches } from "./currencyTranslator/needsTranslation";
@@ -17,7 +16,12 @@ const client = new Client({
 	],
 });
 
+const ONE_HOUR = 60 * 60 * 1000;
+
 getRateData();
+setInterval(() => {
+	getRateData();
+}, ONE_HOUR);
 
 client.on("ready", () => {
 	client.user.setActivity("$:currency help");
@@ -41,7 +45,7 @@ client.on("messageCreate", async (message) => {
 		.setTitle("Currency Context")
 		.setColor(Colors.Blue)
 		.setFooter({
-			text: "Rates By Exchange Rate API",
+			text: "Rates from penylo.dev",
 		});
 
 	let embedDescription = "Providing useful currency context\n";

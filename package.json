@@ -1,30 +1,30 @@
 {
-  "name": "currency-translator-bot",
-  "type": "module",
-  "module": "es2022",
-  "version": "1.0.0",
-  "description": "auto converts currencies sent in messages to a servers targeted currency",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch index.ts",
-    "prod": "npx prisma generate && npx tsx index.ts",
-    "format": "npx @biomejs/biome check --write ."
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@biomejs/biome": "^1.8.2",
-    "@prisma/client": "5.15.1",
-    "discord.js": "^14.15.3",
-    "dotenv": "^16.4.5",
-    "nodemon": "^3.1.4",
-    "prisma": "^5.15.1",
-    "ts-node": "^10.9.2",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "npx": "^10.2.2",
-    "tsx": "^4.15.7"
-  }
+	"name": "currency-translator-bot",
+	"type": "module",
+	"module": "es2022",
+	"version": "1.0.0",
+	"description": "auto converts currencies sent in messages to a servers targeted currency",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "tsx watch index.ts",
+		"prod": "npx prisma generate && npx tsx index.ts",
+		"format": "npx @biomejs/biome check --write ."
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@biomejs/biome": "^1.8.2",
+		"@prisma/client": "5.15.1",
+		"discord.js": "^14.15.3",
+		"dotenv": "^16.4.5",
+		"nodemon": "^3.1.4",
+		"prisma": "^5.15.1",
+		"ts-node": "^10.9.2",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"npx": "^10.2.2",
+		"tsx": "^4.15.7"
+	}
 }
